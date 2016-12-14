@@ -1,2 +1,2 @@
-# didactic-octo-spork
+# simpleGL
 simpleGL
