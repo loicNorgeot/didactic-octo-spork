@@ -27,10 +27,12 @@ class Camera;
 class Object;
 class Material;
 class Texture;
+class GUI;
 
 enum MATERIAL{MAT_COLOR, MAT_VERTEX_COLOR, MAT_TEXTURED};
 
 #include "lodepng.h"
+#include "text.h"
 #include "texture.h"
 #include "material.h"
 #include "object.h"
@@ -47,5 +49,11 @@ extern double chrono;
 void exit(std::string message);
 void FPS(double *t);
 void FPS(double *t, int *fr);
+
+GLuint setupArrayBuffer(std::vector<float> *array);
+GLuint setupElementsBuffer(std::vector<unsigned int> *array);
+void linkAttribute(std::string name, GLuint buffer, GLuint program, int dimension, int index);
+
+GLuint loadShaders(std::string vertexShader, std::string fragmentShader, std::string functions="");
 
 #endif 

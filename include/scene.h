@@ -7,6 +7,7 @@ class Scene{
 public:
     Camera* mCamera;
     std::vector<Object*> mObjects;
+		Object* active;
     Scene();
     void addCamera(Camera* cam);
     void addObject(Object* obj);

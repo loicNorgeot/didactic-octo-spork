@@ -9,6 +9,7 @@ public:
     Scene* mScene;
     int mWidth, mHeight;
     std::string mTitle;
+		GUI*                     mGUI;
     Window(int width, int height, std::string title);
     void addScene(Scene* scene);
 };

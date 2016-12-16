@@ -16,8 +16,4 @@ public:
     void render();
 };
 
-GLuint setupArrayBuffer(std::vector<float> *array);
-GLuint setupElementsBuffer(std::vector<unsigned int> *array);
-void linkAttribute(std::string name, GLuint buffer, GLuint program, int dimension, int index);
-
 #endif 

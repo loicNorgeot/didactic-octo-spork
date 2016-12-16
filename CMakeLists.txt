@@ -9,6 +9,7 @@ set( CMAKE_MACOSX_RPATH     1)
 project( Minimal )
 set( CMAKE_CXX_FLAGS        "-std=c++0x -O3 -w -lassimp")
 include_directories(        "include/")
+link_directories(           "/usr/local/lib/")
 
 ################################################################
 #Dependencies
@@ -19,7 +20,8 @@ find_package( ASSIMP REQUIRED)
 if(ASSIMP_FOUND)
     include_directories(${ASSIMP_INCLUDE_DIR})
 endif() 
-
+find_package(Freetype REQUIRED)
+include_directories(${FREETYPE_INCLUDE_DIRS})
 
 if(APPLE)
 	find_package( GLEW REQUIRED )
@@ -39,11 +41,11 @@ else()
 endif()
 
 if(APPLE)
-	set(LIBS ${GLEW_LIBRARIES} ${GLFW_STATIC_LIBRARIES})
+	set(LIBS ${GLEW_LIBRARIES} ${GLFW_LIBRARIES})
 else()
 	set(LIBS ${glfw} ${glew})
 endif()
-set(LIBS ${LIBS} ${OPENGL_LIBRARY} ${X11_LIBRARIES} ${ASSIMP_LIBRARY})
+set(LIBS ${LIBS} ${FREETYPE_LIBRARIES} ${OPENGL_LIBRARY} ${X11_LIBRARIES} ${ASSIMP_LIBRARY})
 
 
 

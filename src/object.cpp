@@ -1,40 +1,5 @@
 #include "object.h"
 
-GLuint setupArrayBuffer(std::vector<float> *array){
-    GLuint buffer;
-    glGenBuffers( 1, &buffer );
-    glBindBuffer(GL_ARRAY_BUFFER, buffer);
-    glBufferData(GL_ARRAY_BUFFER, array->size()*sizeof(float), &(*array)[0], GL_STATIC_DRAW);
-    glBindBuffer(GL_ARRAY_BUFFER, 0);
-    if(verbose){
-        std::cout << "Initializing buffer for an array:" << std::endl;
-        std::cout << "  Size of array = " << array->size() << std::endl;
-        std::cout << "  Buffer ID     = " << buffer << std::endl;
-        std::cout << "  Array adress  = " << &(*array)[0] << std::endl;
-    }
-    return buffer;
-}
-GLuint setupElementsBuffer(std::vector<unsigned int> *array){
-    GLuint buffer;
-    glGenBuffers( 1, &buffer);
-    if(verbose){
-        std::cout << "Initializing buffer for the indices:" << std::endl;
-        std::cout << "  Size of array = " << array->size() << std::endl;
-        std::cout << "  Buffer ID = " << buffer << std::endl;
-        std::cout << "  Array adress = " << array << std::endl;
-    }
-    glBindBuffer( GL_ELEMENT_ARRAY_BUFFER, buffer);
-    glBufferData( GL_ELEMENT_ARRAY_BUFFER, array->size()*sizeof(unsigned int), &(*array)[0], GL_STATIC_DRAW);
-    glBindBuffer( GL_ELEMENT_ARRAY_BUFFER, 0);
-    return buffer;
-}
-void linkAttribute(std::string name, GLuint buffer, GLuint program, int dimension, int index){
-    glBindBuffer(GL_ARRAY_BUFFER, buffer);
-    glEnableVertexAttribArray( index);
-    glVertexAttribPointer(     index, dimension, GL_FLOAT, GL_FALSE, 0, ( void*)0);
-    glBindAttribLocation(      program, index, name.c_str());
-    glBindBuffer(GL_ARRAY_BUFFER, 0);
-}
 Object::Object(std::string file){
     const struct aiScene* scene = NULL;
     scene = aiImportFile(file.c_str(), aiProcessPreset_TargetRealtime_MaxQuality);
@@ -130,7 +95,8 @@ void Object::addMaterial(Material *mat){
 void Object::render(){
     glEnable(GL_DEPTH_TEST);
     glDepthFunc(GL_LESS);
-    glUseProgram(mMaterial->mId);
+		glDisable(GL_BLEND);
+		glUseProgram(mMaterial->mId);
     glBindVertexArray(mVao);
     glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, mIndicesBuffer);			
     glDrawElements(GL_TRIANGLES, mIndices.size(), GL_UNSIGNED_INT, (void*)0);		

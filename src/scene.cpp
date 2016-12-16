@@ -1,6 +1,8 @@
 #include "scene.h"
 
-Scene::Scene(){}
+Scene::Scene(){
+	active=NULL;
+}
 void Scene::addCamera(Camera* cam){
     mCamera = cam;
 }

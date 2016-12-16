@@ -9,7 +9,6 @@ public:
 	GLuint   mId;
 	std::vector<Texture*> mTextures;
 	Material(MATERIAL type);
-	GLuint load(std::string vertexShader, std::string fragmentShader);
 	void addTexture(Texture* texture);
 };
 

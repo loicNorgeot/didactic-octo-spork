@@ -17,7 +17,6 @@ public:
     Application();
     
     int setupGLFW();
-    //GLFWwindow* addWindow();
     Window* addWindow(int width, int height, std::string title);
     Window* activeWindow();
     int setupGLEW();

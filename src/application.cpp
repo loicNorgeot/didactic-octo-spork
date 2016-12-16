@@ -20,6 +20,7 @@ int Application::setupGLFW(){
 Window* Application::addWindow(int width, int height, std::string title){
     Window* win = new Window(width, height, title);
     if(!setupGLEW()){ exit("Failed to initialize GLEW");}
+		//win->mGUI = new GUI(rootDir + "shaders/00 - text/shader.vert", rootDir + "shaders/00 - text/shader.frag", rootDir + "fonts/arial.ttf");
     setupInteractions(win);
     windows.push_back(win);
     return win;
@@ -89,7 +90,7 @@ void Application::mouseButtonCallback(GLFWwindow* window, int button, int action
 void Application::mousePositionCallback(GLFWwindow* window, int xpos, int ypos){
     Window *win = activeWindow();
     glm::vec2 depl(xpos - lastX, ypos - lastY);
-    if (glfwGetMouseButton(window, GLFW_MOUSE_BUTTON_LEFT) == GLFW_PRESS){
+    if(!win->mScene->active && glfwGetMouseButton(window, GLFW_MOUSE_BUTTON_LEFT) == GLFW_PRESS){
         win->mScene->mCamera->rotate(-0.01f * depl.y, win->mScene->mCamera->mRight);
         win->mScene->mCamera->rotate(-0.01f * depl.x, win->mScene->mCamera->mUp);
     }
